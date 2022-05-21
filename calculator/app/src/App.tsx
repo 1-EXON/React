@@ -17,14 +17,13 @@ export default function App() {
             [name]: value
         })
         console.log(numbers)
-        // (-b +- 루트(b^2 - 4ac))/2a
     }
 
     const onClick = (e: React.MouseEvent<HTMLElement>) => {
-        let arr: number[] = [x2, x1, n].map(number => parseInt(number));
-        const result1 = (arr[1] + Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
-        const result2 = (arr[1] - Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
-        alert(`${result1}, ${result2}`)
+        let arr: number[] = [x2, x1, n].map(number => parseInt(number))
+        const result1: number = (arr[1] + Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
+        const result2: number = (arr[1] - Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
+        alert((Number.isNaN(result1) && Number.isNaN(result2)) ? '해가 없습니다.' : `${result1}, ${result2}`)
     }
 
     return (
