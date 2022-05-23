@@ -21,8 +21,8 @@ export default function App() {
 
     const onClick = (e: React.MouseEvent<HTMLElement>) => {
         let arr: number[] = [x2, x1, n].map(number => parseInt(number))
-        const result1: number = (arr[1] + Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
-        const result2: number = (arr[1] - Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
+        const result1: number = (-1*arr[1] + Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
+        const result2: number = (-1*arr[1] - Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
         alert((Number.isNaN(result1) && Number.isNaN(result2)) ? '해가 없습니다.' : `${result1}, ${result2}`)
     }
 
