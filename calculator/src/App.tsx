@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
+
+import { Result } from './Result'
 
 export default function App() {
     const [numbers, setNumbers] = useState<{x2: string, x1: string, n: string}>({
@@ -9,6 +11,8 @@ export default function App() {
     })
 
     const { x2, x1, n } = numbers
+
+    const [his, setHis] = useState<{x2: string, x1: string, n: string, r1: string, r2: string}[]>([])
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, name } = e.target
@@ -24,13 +28,23 @@ export default function App() {
         const result1: number = (-1*arr[1] + Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
         const result2: number = (-1*arr[1] - Math.sqrt(arr[1]*arr[1] - (4 * arr[0] * arr[2]))) / (2 * arr[0])
         alert((Number.isNaN(result1) && Number.isNaN(result2)) ? '해가 없습니다.' : `${result1}, ${result2}`)
+        setHis([
+            ...his,
+            {
+                x2: x2,
+                x1: x1,
+                n: n,
+                r1: result1.toString(),
+                r2: result2.toString()
+            }
+        ])
     }
 
     return (
         <div>
             <div className="p-6 mt-60 max-w-sm mx-auto bg-slate-200 rounded-xl shadow-lg items-center space-x-4">
                 <h1 className="text-5xl mb-5 text-center font-bold text-slate-700">Calculator</h1>
-                <span className="block text-sm font-medium text-slate-700">x^2 의 계수</span>
+                <span className="block text-sm font-medium text-slate-700">x<sup>2</sup> 의 계수</span>
                 <div className="inline-block text-center mb-3">
                     <form className="inline-block text-center">
                         <input name="x2" type="text" value={x2} onChange={onChange} className="mt-1 block w-50 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-slate-700 focus:ring-1 focus:ring-slate-700"></input>
@@ -51,6 +65,15 @@ export default function App() {
                 <button onClick={onClick} className="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 border border-slate-700 rounded">
                     계산하기
                 </button>
+                {
+                    his.map((v, i) => {
+                        console.log(v)
+                        return (
+                            // <Hi key={i} x2={v.x2} x1={v.x1} n={v.n} r1={v.r1} r2={v.r2}/> 와 같은 코드
+                            <Result key={i} {...v}/>
+                        )}
+                    )
+                }
             </div>
         </div>
     )
